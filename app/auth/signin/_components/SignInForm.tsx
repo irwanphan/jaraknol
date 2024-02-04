@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { TextInput, PasswordInput, Tooltip, Center, Text, rem, Paper, Button, Flex } from '@mantine/core';
 import { IconInfoCircle } from '@tabler/icons-react';
 import { useForm } from '@mantine/form';
+import { signIn } from "next-auth/react";
 
 function EmailInputGroup({form}: any) {
     const rightSection = (
@@ -77,7 +78,17 @@ const SignInForm = () => {
                 <EmailInputGroup form={form} />
                 <PasswordInputGroup form={form} />
 
-                <Button type='submit' fullWidth mt="xl" size="md">
+                <Button type='submit' fullWidth mt="xl" size="md"
+                    onClick={() =>
+                        // signIn("credentials", {
+                        //     email: form.values.email,
+                        //     password: form.values.password,
+                        //     redirect: true,
+                        //     callbackUrl: "/",
+                        // })
+                        console.log('test values ', form.values)
+                    }
+                >
                     Sign In
                 </Button>
             </form>
