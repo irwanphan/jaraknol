@@ -5,18 +5,54 @@ generator client {
 datasource db {
   provider     = "mysql"
   url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  // relationMode = "prisma"
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  code      String?  @db.VarChar(255)
-  name      String   @db.VarChar(255)
-  email     String   @unique
-  password  String   @db.VarChar(255)
-  role      String   @default("USER")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id              Int      @id @default(autoincrement())
+  code            String?  @db.VarChar(255)
+  name            String   @db.VarChar(255)
+  email           String   @unique
+  password        String   @db.VarChar(255)
+  role            String   @default("USER")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  company         Company[]
+  authored        Memo? @relation("author")
+  assigned        Memo? @relation("assign")
+  carboned        Memo[]
 
   @@map("users")
+}
+
+model Memo {
+  id              Int         @id @default(autoincrement())
+  image           String?
+  title           String
+  description     String
+  // price           Float?      @default(0) 
+  authorId        Int @unique
+  author          User? @relation("author", fields: [authorId], references: [id])
+  assignTo        Int @unique
+  assignToEmail   String
+  assign          User? @relation("assign", fields: [assignTo], references: [id])
+  carbonCopy      User[]
+  dueAt           DateTime?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@map("memos")
+}
+
+model Company {
+  id          String      @id @default(cuid())
+  image       String?
+  email       String
+  name        String
+  admin       String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  members     User[]
+
+  @@map("companies")
 }
