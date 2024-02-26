@@ -25,7 +25,7 @@ function EmailInputGroup({form}: any) {
         <TextInput
             rightSection={rightSection}
             label="Sign in with email"
-            placeholder="Your email"
+            // placeholder="Your email"
             required
             {...form.getInputProps('email')}
         />
@@ -48,7 +48,7 @@ function PasswordInputGroup({form}: any) {
         <PasswordInput
             label="Password"
             required
-            placeholder="Your password"
+            // placeholder="Your password"
             onFocus={() => setOpened(true)}
             onBlur={() => setOpened(false)}
             mt="md"
@@ -80,13 +80,13 @@ const SignInForm = () => {
 
                 <Button type='submit' fullWidth mt="xl" size="md"
                     onClick={() =>
-                        // signIn("credentials", {
-                        //     email: form.values.email,
-                        //     password: form.values.password,
-                        //     redirect: true,
-                        //     callbackUrl: "/",
-                        // })
-                        console.log('test values ', form.values)
+                        signIn("credentials", {
+                            email: form.values.email,
+                            password: form.values.password,
+                            redirect: true,
+                            callbackUrl: "/user-area",
+                        })
+                        // console.log('test values ', form.values)
                     }
                 >
                     Sign In

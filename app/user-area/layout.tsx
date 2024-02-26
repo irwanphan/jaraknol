@@ -11,25 +11,16 @@ export default async function UserPanelLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
-  // if (!session || !session.user) {
-  //   redirect("api/auth/signin");
-  // }
-  console.log(authOptions);
+  if (!session || !session.user) {
+    redirect("api/auth/signin");
+  }
+  console.log(session);
 
   return (
     <SessionProvider session={session}>
-      <div className="relative flex min-h-screen flex-col bg-stone-50">
-        {/* <SiteHeader /> */}
-        <div className="flex-1 px-4 py-4 md:px-8">
-          <div className="space-y-4">
-            <div className="container relative p-0">
-              <main className="relative min-h-[calc(100vh-100px)] py-6">
-                {children}
-              </main>
-            </div>
-          </div>
-        </div>
-      </div>
+      <main className="relative min-h-[calc(100vh-100px)] py-6">
+        {children}
+      </main>
       {/* <Toaster /> */}
     </SessionProvider>
   );
